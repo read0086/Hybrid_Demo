@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class LoginDao {
     public static boolean validate(String name, String pass) {        
         boolean status = false;
-        Connection conne = null;
+        Connection conn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
 
@@ -20,10 +20,10 @@ public class LoginDao {
         String password = "Cameron7";
         try {
             Class.forName(driver).newInstance();
-            conne = DriverManager
+            conn = DriverManager
                     .getConnection(url + dbName, userName, password);
 
-            pst = conne
+            pst = conn
                     .prepareStatement("select * from login where user=? and password=?");
             pst.setString(1, name);
             pst.setString(2, pass);
@@ -34,9 +34,9 @@ public class LoginDao {
         } catch (Exception e) {
             System.out.println(e);
         } finally {
-            if (conne != null) {
+            if (conn != null) {
                 try {
-                    conne.close();
+                    conn.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
